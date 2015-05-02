@@ -1,0 +1,16 @@
+{
+    "contents" : "\nrequire(\"shiny\")\nrequire(\"d3Network\")\n# set Working DIR\nsetwd(\"C:/Data/work/project/Off-label_Drug\");\nprint(getwd())\nsource (\"01_ReadOffLabel.R\")\nprint('this is done')\n# Read Offlabel Data\noffLabel<- readOffLabelData(HIGHPRECISIONSUBSET=TRUE)\n\n#\ndrugNames <- sort(as.vector(unique(offLabel$DRUG_DESC)))\nprint(length(drugNames))\n\n\n\n# Define Shiny Server\nshinyServer(function(input,output) {\n#   output$chromSelect <- renderUI({\n#     selectInput( \"chrom\", \"Chromosome\", choices = c(\"I\",\"II\",\"III\",\"IV\",\"V\",\"VI\",\"VII\",\"VIII\",\"IX\",\"X\",\"XI\",\"XII\",\"XIII\",\"XIV\",\"XV\",\"XVI\", \"Mito\"))\n#   })\n \n  \n#   Source <- c(\"A\", \"A\", \"A\", \"A\", \"B\", \"B\", \"C\", \"C\", \"D\");\n#   Target <- c(\"B\", \"C\", \"D\", \"J\", \"E\", \"F\", \"G\", \"H\", \"I\");\n#  NetworkData <- data.frame(Source, Target)\n# network \n# output$networkPlot <- renderPrint({\n#   d3SimpleNetwork(NetworkData, width = 1000, height = 600)\n# })\n  selOffLabel <- subset(offLabel,(DRUG_DESC==drugNames[1] & ! is.na(INDICATION_DESCRIPTION)) )\n  \n  output$drugNameSelect <- renderUI({\n      selectizeInput(\"drugName\",\"Select Drug:\",choices=drugNames,options=list(maxOptions = 4000))\n  })\n  \n  #print (input$drugNameSelect)\n  #    selOffLabel <- subset(offLabel,(DRUG_DESC==input$drugNameSelect & ! is.na(INDICATION_DESCRIPTION)) )\n  count <- nrow(selOffLabel)\n  #print(selOffLabel)\n  Target <- rep(0,count)  #drug\n  Source <- c(1:count)      #disease\n  Value  <- selOffLabel$MENTIONEDBYRESOURCES\n  Link  <- data.frame(Source,Target,Value)\n  name   <- selOffLabel$INDICATION_DESCRIPTION\n  group  <- selOffLabel$POSSIBLE_LABEL_USE\n  ID    <- 1:length(name)\n  Node   <- data.frame(ID,name,group)\n  \n  output$networkPlot <- renderPrint({\n    d3ForceNetwork(Nodes = Node, \n                    Links = Link,  \n                    Source = \"Source\", Target = \"Target\",                     \n                    Value = \"Value\", NodeID = \"name\", \n                    Group = \"group\",width = 400, height = 500,\n                    parentElement = '#networkPlot')\n })\n  \n})",
+    "created" : 1429494323491.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1214442012",
+    "id" : "FF48C7B5",
+    "lastKnownWriteTime" : 1430000120,
+    "path" : "C:/Data/work/project/Off-label_Drug/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

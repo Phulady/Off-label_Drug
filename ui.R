@@ -1,20 +1,33 @@
 require("shiny")
 
-shinyUI(pageWithSidebar(
-    headerPanel("Off-label Uses of Drugs"),
+
+
+shinyUI(fluidPage(
+  # Load d3.js
+  tags$head(
+    tags$script(src = 'http://d3js.org/d3.v3.min.js')
+  ),
+  titlePanel("Off-label Uses of Drugs"),
+  sidebarLayout(
     sidebarPanel(
-      sliderInput("windowsize", 
-                  "Windowsize:", 
-                  min = 10,
-                  max = 200,
-                  value = 50,
-                  step = 5),
-      uiOutput ("drugNameSelect"),
-      uiOutput("chromSelect")
+       uiOutput ("drugNameSelect"),
+       sliderInput("MentionByResources", 
+                   "Mentioned By Resources (atleast):", 
+                   min = 1,
+                   max = 4,
+                   value = 1,
+                   step = 1),
+       radioButtons("DrugUse", label = h3("Possible Drug Use:"),
+                    choices = list("Any" = 2, "On Label" = 1,
+                                   "Off Label" = 0),selected = 2)
+#      uiOutput("chromSelect")
     ),
     mainPanel(
-      print("Test")
-      #uiOutput ("drugNameSelect")
+       htmlOutput("networkPlot"),
+       dataTableOutput('selectedTable')
+       #verbatimTextOutput("networkPlot")
+       
+     # uiOutput ("drugNameSelect")
     )
   )
-)
+))

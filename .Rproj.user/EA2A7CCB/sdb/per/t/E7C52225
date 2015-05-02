@@ -1,0 +1,16 @@
+{
+    "contents" : "# This Read Input Data\n#setwd(\"C:/Data/work/project/Off-label_Drug\");\n\n\nreadOffLabelData <- function (HIGHPRECISIONSUBSET=FALSE) {\n  #File Name\n  offlabFile <- \"MEDI_01212013_0.csv\"\n  # Read data\n  offLabel <- read.table(offlabFile,header=TRUE, sep=\",\",quote=\"\\\"\",na.strings=c(\"\"))\n  # change type\n  offLabel$MENTIONEDBYRESOURCES <- as.factor(offLabel$MENTIONEDBYRESOURCES)\n  offLabel$HIGHPRECISIONSUBSET <- as.factor(offLabel$HIGHPRECISIONSUBSET)\n  offLabel$POSSIBLE_LABEL_USE <- as.factor(offLabel$POSSIBLE_LABEL_USE)\n  if (HIGHPRECISIONSUBSET){\n    offLabel <- subset(offLabel,HIGHPRECISIONSUBSET==1)\n  }\n  return (offLabel)\n}",
+    "created" : 1429494444603.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1944690097",
+    "id" : "E7C52225",
+    "lastKnownWriteTime" : 1429494599,
+    "path" : "C:/Data/work/project/Off-label_Drug/01_ReadOffLabel.R",
+    "project_path" : "01_ReadOffLabel.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

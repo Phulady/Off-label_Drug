@@ -1,0 +1,16 @@
+{
+    "contents" : "require(\"shiny\")\n\n\n\nshinyUI(fluidPage(\n  # Load d3.js\n  tags$head(\n    tags$script(src = 'http://d3js.org/d3.v3.min.js')\n  ),\n  titlePanel(\"Off-label Uses of Drugs\"),\n  sidebarLayout(\n    sidebarPanel(\n#       sliderInput(\"windowsize\", \n#                   \"Windowsize:\", \n#                   min = 10,\n#                   max = 200,\n#                   value = 50,\n#                   step = 5),\n       uiOutput (\"drugNameSelect\")\n#      uiOutput(\"chromSelect\")\n    ),\n    mainPanel(\n       htmlOutput(\"networkPlot\")\n     # uiOutput (\"drugNameSelect\")\n    )\n  )\n))",
+    "created" : 1429494325435.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3471733615",
+    "id" : "4F27CC7D",
+    "lastKnownWriteTime" : 1429493889,
+    "path" : "C:/Data/work/project/Off-label_Drug/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
